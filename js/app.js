@@ -98,8 +98,8 @@ const init = () => {
 
 const runGame = () => {
     updateStates();
-    checkGameOver();
     render();
+    checkGameOver();
 };
 
 const updateStates = () => {
@@ -112,34 +112,29 @@ const render = () => {
     boredomStatEl.textContent = state.boredom;
     hungerStatEl.textContent = state.hunger;
     sleepinessStatEl.textContent = state.sleepiness;
+};
 
-    // I would move this to the checkGameOver function, and then change the order in runGame
-    if (gameOver) {
+checkGameOver = () => {
+    if (state.boredom >= 10 || state.hunger >= 10 || state.sleepiness >= 10) {
+        gameOver = true;
         clearInterval(timer);
         gameMessageEl.classList.remove('hidden');
         resetButtonEl.classList.remove('hidden');
     };
 };
 
-checkGameOver = () => {
-    if (state.boredom >= 10 || state.hunger >= 10 || state.sleepiness >= 10) {
-        gameOver = true;
-    };
-};
-
-
 const playBtnClick = () => {
-    state.boredom = 0;
+    if (!gameOver) { state.boredom = 0 };
     render();
 };
 
 const feedBtnClick = () => {
-    state.hunger = 0;
+    if (!gameOver) { state.hunger = 0 };
     render();
 };
 
 const sleepBtnClick = () => {
-    state.sleepiness = 0;
+    if (!gameOver) { state.sleepiness = 0 };
     render();
 };
 
