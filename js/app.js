@@ -64,10 +64,8 @@ const boredomStatEl = document.querySelector('#boredom-stat');
 const hungerStatEl = document.querySelector('#hunger-stat');
 const sleepinessStatEl = document.querySelector('#sleepiness-stat');
 
-// action buttons
-const playButtonEl = document.querySelector('#play');
-const feedButtonEl = document.querySelector('#feed');
-const sleepButtonEl = document.querySelector('#sleep');
+// ALL action buttons
+const actionButtonsEl = document.querySelector('.button-wrapper')
 
 // game message
 const gameMessageEl = document.querySelector('#message');
@@ -118,11 +116,14 @@ checkGameOver = () => {
     if (state.boredom >= 10 || state.hunger >= 10 || state.sleepiness >= 10) {
         gameOver = true;
         clearInterval(timer);
+
+        // could combine these to children of game-state-wrapper
         gameMessageEl.classList.remove('hidden');
         resetButtonEl.classList.remove('hidden');
     };
 };
 
+// could combine these all under a single function maybe?
 const playBtnClick = () => {
     if (!gameOver) { state.boredom = 0 };
     render();
@@ -141,11 +142,11 @@ const sleepBtnClick = () => {
 
 /*----------------------------- Event Listeners -----------------------------*/
 
-// could do a combined button element with querySelectorAll
-// then iterate event listeners with forEach?
-playButtonEl.addEventListener('click', playBtnClick);
-feedButtonEl.addEventListener('click', feedBtnClick);
-sleepButtonEl.addEventListener('click', sleepBtnClick);
+
+actionButtonsEl.addEventListener('click', (event)=> {
+    let actionName = event.target.getAttribute('id') + 'BtnClick()'
+    if (event.target.getAttribute('id')) {eval(actionName)};
+});
 
 resetButtonEl.addEventListener('click', init);
 
@@ -153,7 +154,17 @@ resetButtonEl.addEventListener('click', init);
 
 init();
 
-// not sure if they want this inside or outside init function
-// gameOver = false;
+/*--------------------------- code graveyard --------------------------------*/
+
+// action buttons
+// const playButtonEl = document.querySelector('#play');
+// const feedButtonEl = document.querySelector('#feed');
+// const sleepButtonEl = document.querySelector('#sleep');
+
+// individual event listeners
+// playButtonEl.addEventListener('click', playBtnClick);
+// feedButtonEl.addEventListener('click', feedBtnClick);
+// sleepButtonEl.addEventListener('click', sleepBtnClick);
+
 
 /*---------------------------------------------------------------------------*/
