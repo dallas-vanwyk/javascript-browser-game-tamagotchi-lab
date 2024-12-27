@@ -87,10 +87,13 @@ const getRandomInt = (min, max) => {
 }
 
 const init = () => {
+    resetButtonEl.classList.add('hidden');
+    gameMessageEl.classList.add('hidden');
     gameOver = false;
-
+    playBtnClick();
+    feedBtnClick();
+    sleepBtnClick();
     timer = setInterval(runGame, 2000);
-
 };
 
 const runGame = () => {
@@ -125,10 +128,31 @@ checkGameOver = () => {
 };
 
 
+const playBtnClick = () => {
+    state.boredom = 0;
+    render();
+};
+
+const feedBtnClick = () => {
+    state.hunger = 0;
+    render();
+};
+
+const sleepBtnClick = () => {
+    state.sleepiness = 0;
+    render();
+};
+
+
 /*----------------------------- Event Listeners -----------------------------*/
 
+// could do a combined button element with querySelectorAll
+// then iterate event listeners with forEach?
+playButtonEl.addEventListener('click', playBtnClick);
+feedButtonEl.addEventListener('click', feedBtnClick);
+sleepButtonEl.addEventListener('click', sleepBtnClick);
 
-
+resetButtonEl.addEventListener('click', init);
 
 /*--------------------------- Actions on page load --------------------------*/
 
